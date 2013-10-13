@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "INB302WPF", "INB302WPF\INB302WPF.csproj", "{EF4B4780-548E-421B-B988-0CD09E0D5231}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KinectMeasurementsLib", "KinectMeasurementsLib\KinectMeasurementsLib.csproj", "{31189D28-F10A-4D15-8C6C-1AC485D88B97}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkelFileIO", "SkelFileIO\SkelFileIO.csproj", "{4781A5EA-FB11-49AC-B34B-C9A88A4FB516}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainingKit", "TrainingKit\TrainingKit.csproj", "{1D62296B-4D23-4C04-B8F0-A735AC8BE117}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EF4B4780-548E-421B-B988-0CD09E0D5231}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF4B4780-548E-421B-B988-0CD09E0D5231}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF4B4780-548E-421B-B988-0CD09E0D5231}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF4B4780-548E-421B-B988-0CD09E0D5231}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31189D28-F10A-4D15-8C6C-1AC485D88B97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31189D28-F10A-4D15-8C6C-1AC485D88B97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31189D28-F10A-4D15-8C6C-1AC485D88B97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31189D28-F10A-4D15-8C6C-1AC485D88B97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4781A5EA-FB11-49AC-B34B-C9A88A4FB516}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4781A5EA-FB11-49AC-B34B-C9A88A4FB516}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4781A5EA-FB11-49AC-B34B-C9A88A4FB516}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4781A5EA-FB11-49AC-B34B-C9A88A4FB516}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D62296B-4D23-4C04-B8F0-A735AC8BE117}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D62296B-4D23-4C04-B8F0-A735AC8BE117}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D62296B-4D23-4C04-B8F0-A735AC8BE117}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D62296B-4D23-4C04-B8F0-A735AC8BE117}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

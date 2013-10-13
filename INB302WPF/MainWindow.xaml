@@ -1,0 +1,12 @@
+﻿<Window x:Class="INB302WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <Button Content="Brendon" HorizontalAlignment="Left" Height="66" Margin="40,104,0,0" VerticalAlignment="Top" Width="179" Click="Button_Click_1"/>
+        <Button Content="Ryan" HorizontalAlignment="Left" Height="66" Margin="245,104,0,0" VerticalAlignment="Top" Width="206" Click="Button_Click"/>
+        <Button Content="Depth Sensor" HorizontalAlignment="Left" Height="69" Margin="40,194,0,0" VerticalAlignment="Top" Width="179" Click="Button_Click_2"/>
+        <Button Content="Skeleton" HorizontalAlignment="Left" Height="69" Margin="245,194,0,0" VerticalAlignment="Top" Width="206" Click="Button_Click_3"/>
+
+    </Grid>
+</Window>
