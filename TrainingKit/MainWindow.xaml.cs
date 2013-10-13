@@ -280,7 +280,7 @@ namespace TrainingKit
         {
             sList.setCurrentSkel(Convert.ToInt32(playbackSlider.Value));
             switch (currentFile)
-            {
+            { 
                 case 1:
                     {
                         draw(sList.GetCurrentSkel(), sList, drawing);
