@@ -278,7 +278,7 @@ namespace TrainingKit
 
         private void playbackSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            sList.setCurrentSkel(Convert.ToInt32(playbackSlider.Value));
+            sList.setCurrentSkel(Convert.ToInt32(playbackSlider.Value)); 
             switch (currentFile)
             { 
                 case 1:
