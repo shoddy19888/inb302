@@ -29,8 +29,9 @@ namespace TrainingKit
         SkelIO io;
         SkeletonList sList;
         SkeletonList sList2;
+        SkeletonList tempsList1, tempsList2;
         int currentFile = 1;
-        double start1=0, start2=0, end1=0, end2=0;
+        int countForSkel= 1;
 
         public MainWindow()
         {
@@ -46,6 +47,7 @@ namespace TrainingKit
             cmbFile.Items.Add("File 2");
             cmbFile.Items.Add("Both");
             cmbFile.Text = "File 1";
+            
         }
 
         private void btnRead_Click(object sender, RoutedEventArgs e)
@@ -205,8 +207,8 @@ namespace TrainingKit
                     } break;
                 case 3:
                     {
-                        sList.setCurrentSkel(int.Parse(start1.ToString()));
-                        sList2.setCurrentSkel(int.Parse(start2.ToString()));
+                        sList.Reset();
+                        sList2.Reset();
                         draw(sList.GetCurrentSkel(), sList, drawing);
 
                     } break;
@@ -254,6 +256,24 @@ namespace TrainingKit
                     } break;
                 case 3:
                     {
+                        if (sList.GetSkelCount() > sList2.GetSkelCount())
+                        {
+                            draw(sList.PreviousSkel(), sList, drawing);
+                            
+                            if (playbackSlider.Value / playbackSlider.Value == 0)
+                            {
+                                draw(sList2.PreviousSkel(), sList2, drawing);
+                            }
+                        }
+                        else
+                        {
+                            draw(sList2.PreviousSkel(), sList2, drawing);
+
+                            if (playbackSlider.Value / playbackSlider.Value == 0)
+                            {
+                                draw(sList.PreviousSkel(), sList, drawing);
+                            }
+                        }
                     } break;
             }
           
@@ -274,6 +294,24 @@ namespace TrainingKit
                     } break;
                 case 3:
                     {
+                        if (sList.GetSkelCount() > sList2.GetSkelCount())
+                        {
+                            draw(sList.NextSkel(), sList, drawing);
+                            
+                            if (playbackSlider.Value / playbackSlider.Value == 0)
+                            {
+                                draw(sList2.NextSkel(), sList2, drawing);
+                            }
+                        }
+                        else
+                        {
+                            draw(sList2.NextSkel(), sList2, drawing);
+
+                            if (playbackSlider.Value / playbackSlider.Value == 0)
+                            {
+                                draw(sList.NextSkel(), sList, drawing);
+                            }
+                        }
                     } break;
             }
         }
@@ -323,8 +361,8 @@ namespace TrainingKit
             {
                 case 1:
                     {
-                        start1 = playbackSlider.Value;
-                        if (start1 > end1 && end1 != 0)
+                        sList.setStart(Convert.ToInt32(playbackSlider.Value));
+                        if (sList.getStart() > sList.getEnd() && sList.getEnd() != 0)
                         {
                             MessageBox.Show("The start point needs to be before the end point.");
                             return;
@@ -333,8 +371,8 @@ namespace TrainingKit
                     } break;
                 case 2:
                     {
-                        start2 = playbackSlider.Value;
-                        if (start2 > end2 && end2 != 0)
+                        sList2.setStart(Convert.ToInt32(playbackSlider.Value));
+                        if (sList2.getStart() > sList2.getEnd() && sList2.getEnd() != 0)
                         {
                             MessageBox.Show("The start point needs to be before the end point.");
                             return;
@@ -354,8 +392,8 @@ namespace TrainingKit
             {
                 case 1:
                     {
-                        end1 = playbackSlider.Value;
-                        if (end1 < start1)
+                        sList.setEnd(Convert.ToInt32(playbackSlider.Value));
+                        if (sList.getEnd() < sList.getStart())
                         {
                             MessageBox.Show("End point needs to be later in time than the start point.");
                             return;
@@ -364,8 +402,8 @@ namespace TrainingKit
                     } break;
                 case 2:
                     {
-                        end2 = playbackSlider.Value;
-                        if (end2 < start2)
+                        sList2.setEnd(Convert.ToInt32(playbackSlider.Value));
+                        if (sList2.getEnd() < sList2.getStart())
                         {
                             MessageBox.Show("End point needs to be later in time than the start point.");
                             return;
@@ -424,9 +462,26 @@ namespace TrainingKit
                                 MessageBox.Show("You need to import file 2");
                                 return;
                             }
-                            
-                            sList.setCurrentSkel(Convert.ToInt32(start1));
-                            sList2.setCurrentSkel(Convert.ToInt32(start2));
+                            if (sList.getEnd() == 0 || sList.getStart() == 0 || sList2.getEnd() == 0 || sList2.getStart() == 0)
+                            {
+                                MessageBox.Show("Make sure you have set the start and end on each file.");
+                                return;
+                            }
+                            sList.actNewSkellist();
+                            sList2.actNewSkellist();
+                            sList.setCurrentSkel(0);
+                            sList2.setCurrentSkel(0);
+                            if (sList.GetSkelCount() > sList2.GetSkelCount())
+                            {
+                                playbackSlider.Maximum = Convert.ToDouble(sList.GetSkelCount());
+                                countForSkel = sList.GetSkelCount() / sList2.GetSkelCount();
+                            }
+                            else
+                            {
+                                playbackSlider.Maximum = Convert.ToDouble(sList2.GetSkelCount());
+                                countForSkel = sList2.GetSkelCount() / sList.GetSkelCount();
+                            }
+                            playbackSlider.Value = 0;
                             draw(sList.GetCurrentSkel(), sList, drawing);
                             draw(sList2.GetCurrentSkel(), sList2, drawing2);
                             

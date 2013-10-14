@@ -10,8 +10,10 @@ namespace TrainingKit
     public class SkeletonList
     {
         //Variables
-        private Skeleton[] SkelList;
+        private Skeleton[] SkelList, oldSkelList;
         private int CurrentSkel;
+        int Start = 0, End = 0; 
+
      
         //Constructors
         public SkeletonList()
@@ -70,6 +72,30 @@ namespace TrainingKit
                 return true;
             }
             return false;
+        }
+
+        public void setStart(int start)
+        {
+            Start = start;
+        }
+        public void setEnd(int end)
+        {
+            End = end;
+        }
+        public void actNewSkellist()
+        {
+            Array.Copy(SkelList, 0, oldSkelList, 0, SkelList.Count());
+            SkelList = new Skeleton[End - Start];
+            Array.Copy(oldSkelList, Start, SkelList, 0, End - Start);
+        }
+
+        public int getStart()
+        {
+            return Start;
+        }
+        public int getEnd()
+        {
+            return End;
         }
        
     }
