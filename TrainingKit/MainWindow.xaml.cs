@@ -333,6 +333,57 @@ namespace TrainingKit
                     } break;
                 case 3:
                     {
+                        if (sList.GetSkelCount() > sList2.GetSkelCount())
+                        {
+                            /*
+int list1 = slist1.getSleton Num; 200
+int list2 = slist1.getSletonNum; 300
+
+if ( list1 < list2 ) {
+
+	int x = 0;
+
+	float MultiplyPercent = ((list1/(list2/100))/100);
+	
+	while(x < list2) {
+
+		list1.drawSkeleton(Round( x  *MultiplyPercent ));
+
+		list2.drawSkeleton(x);
+		x++;
+
+	}
+
+}
+
+if( list2 < list1) {
+
+	int x = 0;
+
+	float MultiplyPercent = ((list2/(list1/100))/100);
+
+	while(x < list1) {
+
+		list2.drawSkeleton(Round( x * MultiplyPercent ));
+		list1.drawSkeleton( x );
+		x++;
+
+	}
+
+}
+　
+
+*/
+                        }
+                        else
+                        {
+                        }
+                        // here needs code to play both skeletons... 
+                        //ie: draw(slist1.nextskel()
+                        // if (frame is a draw frame) 
+                        //{
+                        // draw(slist2.nextskel()
+                        //}
                     } break;
             }
         }
