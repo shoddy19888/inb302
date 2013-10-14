@@ -40,7 +40,8 @@ namespace TrainingKit
             io = new SkelIO();
             btnRecord.IsEnabled = false;
             drawing2 = new Draw(Surface2);
-
+            btnStart.IsEnabled = false;
+            btnSetEnd.IsEnabled = false;
             cmbFile.Items.Add("File 1");
             cmbFile.Items.Add("File 2");
             cmbFile.Items.Add("Both");
@@ -82,7 +83,8 @@ namespace TrainingKit
             }
 
 
-
+            btnSetEnd.IsEnabled = true;
+            btnStart.IsEnabled = true;
             playbackSlider.Value = 0;
             gridPlayback.IsEnabled = true;
 
@@ -278,15 +280,17 @@ namespace TrainingKit
 
         private void playbackSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            sList.setCurrentSkel(Convert.ToInt32(playbackSlider.Value)); 
+            
             switch (currentFile)
             { 
                 case 1:
                     {
+                        sList.setCurrentSkel(Convert.ToInt32(playbackSlider.Value)); 
                         draw(sList.GetCurrentSkel(), sList, drawing);
                     } break;
                 case 2:
                     {
+                        sList2.setCurrentSkel(Convert.ToInt32(playbackSlider.Value)); 
                         draw(sList2.GetCurrentSkel(), sList2, drawing);
                     } break;
                 case 3:
@@ -310,36 +314,7 @@ namespace TrainingKit
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            try
-            {
-                switch (cmbFile.Text)
-                {
-                    case "File 1":
-                        {
-                            currentFile = 1;
-                            sList.Reset();
-                            draw(sList.GetCurrentSkel(), sList, drawing);
-                        } break;
-                    case "File 2":
-                        {
-                            currentFile = 2;
-                            sList2.Reset();
-                            draw(sList2.GetCurrentSkel(), sList2, drawing);
-                        } break;
-                    case "Both":
-                        {
-                            sList.setCurrentSkel(int.Parse(start1.ToString()));
-                            sList2.setCurrentSkel(int.Parse(start2.ToString()));
-                            draw(sList.GetCurrentSkel(), sList, drawing);
-                            draw(sList2.GetCurrentSkel(), sList2, drawing2);
-                            currentFile = 3;
-                        } break;
-                }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Need to fix this");
-            }
+        
         }
 
         private void btnStart_Click(object sender, RoutedEventArgs e)
@@ -348,21 +323,23 @@ namespace TrainingKit
             {
                 case 1:
                     {
+                        start1 = playbackSlider.Value;
                         if (start1 > end1 && end1 != 0)
                         {
                             MessageBox.Show("The start point needs to be before the end point.");
                             return;
                         }
-                        start1 = playbackSlider.Value;
+                        
                     } break;
                 case 2:
                     {
+                        start2 = playbackSlider.Value;
                         if (start2 > end2 && end2 != 0)
                         {
                             MessageBox.Show("The start point needs to be before the end point.");
                             return;
                         }
-                        start2 = playbackSlider.Value;
+                        
                     } break;
                 case 3:
                     {
@@ -377,26 +354,88 @@ namespace TrainingKit
             {
                 case 1:
                     {
+                        end1 = playbackSlider.Value;
                         if (end1 < start1)
                         {
                             MessageBox.Show("End point needs to be later in time than the start point.");
                             return;
                         }
-                        end1 = playbackSlider.Value;
+                        
                     } break;
                 case 2:
                     {
+                        end2 = playbackSlider.Value;
                         if (end2 < start2)
                         {
                             MessageBox.Show("End point needs to be later in time than the start point.");
                             return;
                         }
-                        end2 = playbackSlider.Value;
+                        
                     } break;
                 case 3:
                     {
                         MessageBox.Show("You need to use either File 1 or File 2");
                     } break;
+            }
+        }
+
+        private void btnSetFile_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                switch (cmbFile.Text)
+                {
+                    case "File 1":
+                        {
+                            currentFile = 1;
+                            if (sList == null)
+                            {
+                                btnStart.IsEnabled = false;
+                                btnSetEnd.IsEnabled = false;
+                                return;
+                            }
+                            
+                            sList.Reset();
+                            draw(sList.GetCurrentSkel(), sList, drawing);
+                        } break;
+                    case "File 2":
+                        {
+                            currentFile = 2;
+                            if (sList2 == null)
+                            {
+                                btnStart.IsEnabled = false;
+                                btnSetEnd.IsEnabled = false;
+                                return;
+                            }
+                            
+                            sList2.Reset();
+                            draw(sList2.GetCurrentSkel(), sList2, drawing);
+                        } break;
+                    case "Both":
+                        {
+                            currentFile = 3;
+                            if (sList == null)
+                            {
+                                MessageBox.Show("You need import file 1");
+                                return;
+                            }
+                            if (sList2 == null)
+                            {
+                                MessageBox.Show("You need to import file 2");
+                                return;
+                            }
+                            
+                            sList.setCurrentSkel(Convert.ToInt32(start1));
+                            sList2.setCurrentSkel(Convert.ToInt32(start2));
+                            draw(sList.GetCurrentSkel(), sList, drawing);
+                            draw(sList2.GetCurrentSkel(), sList2, drawing2);
+                            
+                        } break;
+                }
+            }
+            catch (Exception f)
+            {
+                MessageBox.Show(f.Message);
             }
         }
     }
