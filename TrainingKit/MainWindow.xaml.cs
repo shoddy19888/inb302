@@ -22,13 +22,14 @@ namespace TrainingKit
     public partial class MainWindow : Window
     {
         bool rewind;
-
+        KinectSensor kin;
         bool Record =false;
         Draw drawing;
         Draw drawing2;
         SkelIO io;
         SkeletonList sList;
         SkeletonList sList2;
+ 
         
         int currentFile = 1;
 
@@ -48,6 +49,7 @@ namespace TrainingKit
             cmbFile.Items.Add("Both");
             cmbFile.Text = "File 1";
             playbackSlider.IsEnabled = false;
+  
         }
 
         private void btnRead_Click(object sender, RoutedEventArgs e)
@@ -63,10 +65,10 @@ namespace TrainingKit
             {
                 case 1:
                     {
-
+                        
                         sList = new SkeletonList(tempskel);
                         lblFrame.Content = sList.GetSkelCount().ToString();
-                        drawing.DrawFrame(sList.GetCurrentSkel());
+                        draw(sList.GetCurrentSkel(),sList,drawing, Brushes.Black);
                         playbackSlider.Maximum = sList.GetSkelCount();
                         lblCurrentFrame.Content = sList.GetCurrentSkelIndex();
                     } break;
@@ -74,7 +76,7 @@ namespace TrainingKit
                     {
                         sList2 = new SkeletonList(tempskel);
                         lblFrame.Content = sList2.GetSkelCount().ToString();
-                        drawing.DrawFrame(sList2.GetCurrentSkel());
+                        draw(sList2.GetCurrentSkel(), sList2, drawing2, Brushes.Blue);
                         playbackSlider.Maximum = sList2.GetSkelCount();
                         lblCurrentFrame.Content = sList2.GetCurrentSkelIndex();
                     } break;
@@ -173,9 +175,9 @@ namespace TrainingKit
             dispatchTimerStart(false, 1);
         }
 
-        private void draw(Skeleton skel, SkeletonList skellist, Draw drawin)
+        private void draw(Skeleton skel, SkeletonList skellist, Draw drawin, SolidColorBrush brush)
         {
-            drawin.DrawFrame(skel);
+            drawin.DrawFrame(skel, brush);
             lblCurrentFrame.Content = skellist.GetCurrentSkelIndex().ToString();
         }
 
@@ -210,7 +212,7 @@ namespace TrainingKit
                             dispatcherTimer.Stop();
                         }
                         sList.setCurrentSkel(Convert.ToInt32(playbackSlider.Value)); 
-                        draw(sList.GetCurrentSkel(), sList, drawing);
+                        draw(sList.GetCurrentSkel(), sList, drawing, Brushes.Black);
                     } break;
                 case 2:
                     {
@@ -223,7 +225,7 @@ namespace TrainingKit
                             dispatcherTimer.Stop();
                         }
                         sList2.setCurrentSkel(Convert.ToInt32(playbackSlider.Value)); 
-                        draw(sList2.GetCurrentSkel(), sList2, drawing);
+                        draw(sList2.GetCurrentSkel(), sList2, drawing2, Brushes.Blue);
                     } break;
                 case 3:
                     {
@@ -252,10 +254,10 @@ namespace TrainingKit
                                 
                                 if (sList.GetCurrentSkelIndex() != y)
                                 {
-                                    draw(sList.NextSkel(),sList,drawing);
+                                    draw(sList.NextSkel(),sList,drawing, Brushes.Black);
                                 }
 
-	                        	draw(sList2.NextSkel(),sList2, drawing2);
+	                        	draw(sList2.NextSkel(),sList2, drawing2, Brushes.Blue);
 	                        	
 
 	                            
@@ -270,10 +272,10 @@ namespace TrainingKit
                                 
                                 if (sList2.GetCurrentSkelIndex() != y)
                                 {
-                                    draw(sList2.NextSkel(), sList2, drawing2);
+                                    draw(sList2.NextSkel(), sList2, drawing2, Brushes.Blue);
                                 }
 
-                                draw(sList.NextSkel(), sList, drawing);
+                                draw(sList.NextSkel(), sList, drawing, Brushes.Black);
 
 
 
@@ -379,20 +381,23 @@ namespace TrainingKit
                                 btnStart.IsEnabled = false;
                                 btnSetEnd.IsEnabled = false;
                                 playbackSlider.IsEnabled = false;
+                                gridPlayback.IsEnabled = false;
                                 return;
                             }
                             playbackSlider.IsEnabled = true;
                             sList.Reset();
-                            draw(sList.GetCurrentSkel(), sList, drawing);
+                            Surface2.Children.Clear();
+                            draw(sList.GetCurrentSkel(), sList, drawing, Brushes.Black);
                         } break;
                     case "File 2":
                         {
                             currentFile = 2;
 
                             playbackSlider.Value = 0;
-                            
+                            Surface.Children.Clear();
                             if (sList2 == null)
                             {
+                                gridPlayback.IsEnabled = false;
                                 btnStart.IsEnabled = false;
                                 btnSetEnd.IsEnabled = false;
                                 playbackSlider.IsEnabled = false;
@@ -401,7 +406,8 @@ namespace TrainingKit
                             }
                             playbackSlider.IsEnabled = true;
                             sList2.Reset();
-                            draw(sList2.GetCurrentSkel(), sList2, drawing);
+                            draw(sList2.GetCurrentSkel(), sList2, drawing2, Brushes.Blue);
+
                         } break;
                     case "Both":
                         {

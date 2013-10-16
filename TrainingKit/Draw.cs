@@ -30,6 +30,10 @@ namespace TrainingKit
         {
             DrawStickMan(skeleton, Brushes.Black, 7);
         }
+        public void DrawFrame(Skeleton skeleton, SolidColorBrush brush)
+        {
+            DrawStickMan(skeleton, brush, 7);
+        }
 
         public void DrawFrame(WriteableBitmap CameraSource)
         {
