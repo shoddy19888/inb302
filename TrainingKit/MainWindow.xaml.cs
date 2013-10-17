@@ -22,32 +22,28 @@ namespace TrainingKit
     public partial class MainWindow : Window
     {
         bool rewind;
-        KinectSensor kin;
+        bool rewind1;
         bool Record =false;
         Draw drawing;
-        Draw drawing2;
+        Draw drawing1;
         SkelIO io;
         SkeletonList sList;
-        SkeletonList sList2;
- 
-        
-        int currentFile = 1;
-
+        SkeletonList sList1;
+   
 
         public MainWindow()
         {
             InitializeComponent();
             gridPlayback.IsEnabled = false;
+            gridPlayback1.IsEnabled = false;
             drawing = new Draw(Surface);
             io = new SkelIO();
             btnRecord.IsEnabled = false;
-            drawing2 = new Draw(Surface2);
+            drawing1 = new Draw(Surface2);
             btnStart.IsEnabled = false;
             btnSetEnd.IsEnabled = false;
-            cmbFile.Items.Add("File 1");
-            cmbFile.Items.Add("File 2");
-            cmbFile.Items.Add("Both");
-            cmbFile.Text = "File 1";
+            btnSetEnd1.IsEnabled = false;
+            btnStart1.IsEnabled = false;
             playbackSlider.IsEnabled = false;
   
         }
@@ -61,37 +57,39 @@ namespace TrainingKit
                 return;
             }
 
-            switch (currentFile)
-            {
-                case 1:
-                    {
-                        
-                        sList = new SkeletonList(tempskel);
-                        lblFrame.Content = sList.GetSkelCount().ToString();
-                        draw(sList.GetCurrentSkel(),sList,drawing, Brushes.Black);
-                        playbackSlider.Maximum = sList.GetSkelCount();
-                        lblCurrentFrame.Content = sList.GetCurrentSkelIndex();
-                    } break;
-                case 2:
-                    {
-                        sList2 = new SkeletonList(tempskel);
-                        lblFrame.Content = sList2.GetSkelCount().ToString();
-                        draw(sList2.GetCurrentSkel(), sList2, drawing2, Brushes.Blue);
-                        playbackSlider.Maximum = sList2.GetSkelCount();
-                        lblCurrentFrame.Content = sList2.GetCurrentSkelIndex();
-                    } break;
-                case 3:
-                    {
-                        MessageBox.Show("You need to select either File 1 or File 2");
-                    } break;
-            }
-
+            sList = new SkeletonList(tempskel);
+            lblFrame.Content = sList.GetSkelCount().ToString();
+            draw(sList.GetCurrentSkel(), sList, drawing, Brushes.Black);
+            playbackSlider.Maximum = sList.GetSkelCount();
+            lblCurrentFrame.Content = sList.GetCurrentSkelIndex();
 
             btnSetEnd.IsEnabled = true;
             btnStart.IsEnabled = true;
             playbackSlider.Value = 0;
             gridPlayback.IsEnabled = true;
             playbackSlider.IsEnabled = true;
+
+        }
+        private void btnRead1_Click(object sender, RoutedEventArgs e)
+        {
+            var tempskel = io.ReadFile();
+
+            if (tempskel == null)
+            {
+                return;
+            }
+
+            sList1 = new SkeletonList(tempskel);
+            lblFrame1.Content = sList1.GetSkelCount().ToString();
+            draw(sList1.GetCurrentSkel(), sList1, drawing1, Brushes.Black);
+            playbackSlider1.Maximum = sList1.GetSkelCount();
+            lblCurrentFrame1.Content = sList1.GetCurrentSkelIndex();
+
+            btnSetEnd1.IsEnabled = true;
+            btnStart1.IsEnabled = true;
+            playbackSlider1.Value = 0;
+            gridPlayback1.IsEnabled = true;
+            playbackSlider1.IsEnabled = true;
 
         }
 
@@ -117,6 +115,29 @@ namespace TrainingKit
             rewind = rewinds;
             dispatcherTimer.Start();
             
+        }
+
+        System.Windows.Threading.DispatcherTimer dispatcherTimer1 = new System.Windows.Threading.DispatcherTimer();
+        private void dispatcherTimer1_Tick(object sender, EventArgs e)
+        {
+            if (rewind)
+            {
+                playbackSlider1.Value--;
+            }
+            else
+            {
+                playbackSlider1.Value++;
+            }
+
+        }
+        private void dispatchTimerStart1(bool rewinds, int speed)
+        {
+            dispatcherTimer1.Tick += new EventHandler(dispatcherTimer1_Tick);
+            dispatcherTimer1.Interval = new TimeSpan(0, 0, 0, 0, speed);
+
+            rewind1 = rewinds;
+            dispatcherTimer1.Start();
+
         }
 
 
@@ -196,96 +217,48 @@ namespace TrainingKit
 
         private void playbackSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            
-            switch (currentFile)
-            { 
-                case 1:
-                    {
-                        if (sList == null)
-                        {
-                            
-                            return;
-                        }
+            try
+            {
+                if (sList == null)
+                {
 
-                        if (sList.isEnd())
-                        {
-                            dispatcherTimer.Stop();
-                        }
-                        sList.setCurrentSkel(Convert.ToInt32(playbackSlider.Value)); 
-                        draw(sList.GetCurrentSkel(), sList, drawing, Brushes.Black);
-                    } break;
-                case 2:
-                    {
-                        if (sList2 == null)
-                        {
-                            return;
-                        }
-                        if (sList2.isEnd())
-                        {
-                            dispatcherTimer.Stop();
-                        }
-                        sList2.setCurrentSkel(Convert.ToInt32(playbackSlider.Value)); 
-                        draw(sList2.GetCurrentSkel(), sList2, drawing2, Brushes.Blue);
-                    } break;
-                case 3:
-                    {
-                        
-                        if(sList.isEnd())
-                        {
-                            dispatcherTimer.Stop();
-                            return;
-                        }
-                        if (sList2.isEnd())
-                        {
-                            dispatcherTimer.Stop();
-                            return;
-                        }
-                         
-                            int list1 = sList.GetSkelCount(); 
-                            int list2 = sList2.GetSkelCount();
+                    return;
+                }
 
-                            if ( list1 < list2 ) 
-                            {
-                                
-                                float temp = list2 / 100;
-                                float MultiplyPercent = list1 / temp / 100;
-                                double x = playbackSlider.Value * MultiplyPercent;
-                                int y = Convert.ToInt32(x);
-                                
-                                if (sList.GetCurrentSkelIndex() != y)
-                                {
-                                    draw(sList.NextSkel(),sList,drawing, Brushes.Black);
-                                }
-
-	                        	draw(sList2.NextSkel(),sList2, drawing2, Brushes.Blue);
-	                        	
-
-	                            
-
-                            }
-                            if (list1 > list2)
-                            {
-                                float temp = list1 / 100;
-                                float MultiplyPercent = list2 / temp / 100;
-                                double x = playbackSlider.Value * MultiplyPercent;
-                                int y = Convert.ToInt32(x);
-                                
-                                if (sList2.GetCurrentSkelIndex() != y)
-                                {
-                                    draw(sList2.NextSkel(), sList2, drawing2, Brushes.Blue);
-                                }
-
-                                draw(sList.NextSkel(), sList, drawing, Brushes.Black);
-
-
-
-
-                            }
-    
-　                    } break;
+                if (sList.isEnd())
+                {
+                    dispatcherTimer.Stop();
+                }
+                lblCurrentFrame.Content = playbackSlider.Value.ToString();
+                sList.setCurrentSkel(Convert.ToInt32(playbackSlider.Value));
+                draw(sList.GetCurrentSkel(), sList, drawing, Brushes.Black);
+            }
+            catch (IndexOutOfRangeException)
+            {
+                dispatcherTimer.Stop();
             }
         }
 
+
+        public void math()
+        {/*
+            if (list1 > list2)
+            {
+                float temp = list1 / 100;
+                float MultiplyPercent = list2 / temp / 100;
+                double x = playbackSlider.Value * MultiplyPercent;
+                int y = Convert.ToInt32(x);
+
+                if (sList2.GetCurrentSkelIndex() != y)
+                {
+                    draw(sList2.NextSkel(), sList2, drawing2, Brushes.Blue);
+                }
+
+                draw(sList.NextSkel(), sList, drawing, Brushes.Black);
+
+            }
+          */ 
+        }
         private void btnRecord_Click(object sender, RoutedEventArgs e)
         {
             if (!Record)
@@ -299,160 +272,122 @@ namespace TrainingKit
             }
         }
 
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-        
-        }
+
 
         private void btnStart_Click(object sender, RoutedEventArgs e)
         {
-            switch (currentFile)
+
+            sList.setStart(Convert.ToInt32(playbackSlider.Value));
+            if (sList.getStart() > sList.getEnd() && sList.getEnd() != 0)
             {
-                case 1:
-                    {
-                        sList.setStart(Convert.ToInt32(playbackSlider.Value));
-                        if (sList.getStart() > sList.getEnd() && sList.getEnd() != 0)
-                        {
-                            MessageBox.Show("The start point needs to be before the end point.");
-                            return;
-                        }
-                        
-                    } break;
-                case 2:
-                    {
-                        sList2.setStart(Convert.ToInt32(playbackSlider.Value));
-                        if (sList2.getStart() > sList2.getEnd() && sList2.getEnd() != 0)
-                        {
-                            MessageBox.Show("The start point needs to be before the end point.");
-                            return;
-                        }
-                        
-                    } break;
-                case 3:
-                    {
-                        MessageBox.Show("You need to use either File 1 or File 2");
-                    } break;
+                MessageBox.Show("The start point needs to be before the end point.");
+                return;
             }
         }
 
         private void btnSetEnd_Click(object sender, RoutedEventArgs e)
         {
-            switch (currentFile)
+
+            sList.setEnd(Convert.ToInt32(playbackSlider.Value));
+            if (sList.getEnd() < sList.getStart())
             {
-                case 1:
-                    {
-                        sList.setEnd(Convert.ToInt32(playbackSlider.Value));
-                        if (sList.getEnd() < sList.getStart())
-                        {
-                            MessageBox.Show("End point needs to be later in time than the start point.");
-                            return;
-                        }
-                        
-                    } break;
-                case 2:
-                    {
-                        sList2.setEnd(Convert.ToInt32(playbackSlider.Value));
-                        if (sList2.getEnd() < sList2.getStart())
-                        {
-                            MessageBox.Show("End point needs to be later in time than the start point.");
-                            return;
-                        }
-                        
-                    } break;
-                case 3:
-                    {
-                        MessageBox.Show("You need to use either File 1 or File 2");
-                    } break;
+                MessageBox.Show("End point needs to be later in time than the start point.");
+                return;
             }
+
         }
 
-        private void btnSetFile_Click(object sender, RoutedEventArgs e)
+        
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            kinect.motorDown(1);
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            kinect.motorUp(1);
+        }
+
+        private void btnStart1_Click(object sender, RoutedEventArgs e)
+        {
+            
+            if (Convert.ToInt32(playbackSlider1.Value) > sList.getEnd() && sList.getEnd() != 0)
+            {
+                MessageBox.Show("The start point needs to be before the end point.");
+                return;
+            }
+            sList.setStart(Convert.ToInt32(playbackSlider1.Value));
+        }
+
+        private void btnSetEnd1_Click(object sender, RoutedEventArgs e)
+        {
+            
+            if (Convert.ToInt32(playbackSlider1.Value) < sList1.getStart())
+            {
+                MessageBox.Show("End point needs to be later in time than the start point.");
+                return;
+            }
+            sList1.setEnd(Convert.ToInt32(playbackSlider1.Value));
+        }
+
+        private void btnRew1_Click(object sender, RoutedEventArgs e)
+        {
+            dispatchTimerStart1(true, 40);
+        }
+
+        private void btnPlay1_Click(object sender, RoutedEventArgs e)
+        {
+            dispatchTimerStart1(false, 40);
+        }
+
+        private void btnFF1_Click(object sender, RoutedEventArgs e)
+        {
+            dispatchTimerStart1(false, 5);
+        }
+
+        private void btnSF1_Click(object sender, RoutedEventArgs e)
+        {
+            playbackSlider1.Value++;
+        }
+
+        private void btnPause1_Click(object sender, RoutedEventArgs e)
+        {
+            dispatcherTimer1.Stop();
+        }
+
+        private void btnSRew1_Click(object sender, RoutedEventArgs e)
+        {
+            playbackSlider1.Value--;
+        }
+
+        private void btnStop1_Click(object sender, RoutedEventArgs e)
+        {
+            dispatcherTimer1.Stop();
+            sList1.Reset();
+        }
+
+        private void playbackSlider1_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             try
             {
-                switch (cmbFile.Text)
+                if (sList1 == null)
                 {
-                    case "File 1":
-                        {
-                            playbackSlider.Value = 0;
-                            currentFile = 1;
-                            if (sList == null)
-                            {
-                                btnStart.IsEnabled = false;
-                                btnSetEnd.IsEnabled = false;
-                                playbackSlider.IsEnabled = false;
-                                gridPlayback.IsEnabled = false;
-                                return;
-                            }
-                            playbackSlider.IsEnabled = true;
-                            sList.Reset();
-                            Surface2.Children.Clear();
-                            draw(sList.GetCurrentSkel(), sList, drawing, Brushes.Black);
-                        } break;
-                    case "File 2":
-                        {
-                            currentFile = 2;
 
-                            playbackSlider.Value = 0;
-                            Surface.Children.Clear();
-                            if (sList2 == null)
-                            {
-                                gridPlayback.IsEnabled = false;
-                                btnStart.IsEnabled = false;
-                                btnSetEnd.IsEnabled = false;
-                                playbackSlider.IsEnabled = false;
-                                return;
-
-                            }
-                            playbackSlider.IsEnabled = true;
-                            sList2.Reset();
-                            draw(sList2.GetCurrentSkel(), sList2, drawing2, Brushes.Blue);
-
-                        } break;
-                    case "Both":
-                        {
-                            currentFile = 3;
-                            if (sList == null)
-                            {
-                                MessageBox.Show("You need import file 1");
-                                return;
-                            }
-                            if (sList2 == null)
-                            {
-                                MessageBox.Show("You need to import file 2");
-                                return;
-                            }
-                            if (sList.getEnd() == 0 || sList.getStart() == 0 || sList2.getEnd() == 0 || sList2.getStart() == 0)
-                            {
-                                MessageBox.Show("Make sure you have set the start and end on each file.");
-                                return;
-                            }
-
-                            
-                            sList.actNewSkellist();
-                            sList2.actNewSkellist();
-
-                            
-                            sList.setCurrentSkel(0);
-                            sList2.setCurrentSkel(0);
-                            playbackSlider.Value = 0;
-                            
-                            if (sList.GetSkelCount() > sList2.GetSkelCount())
-                            {
-                                playbackSlider.Maximum = Convert.ToDouble(sList.GetSkelCount());
-                            }
-                            else
-                            {
-                                playbackSlider.Maximum = Convert.ToDouble(sList2.GetSkelCount());
-                            }
-
-                            
-                        } break;
+                    return;
                 }
+
+                if (sList1.isEnd())
+                {
+                    dispatcherTimer1.Stop();
+                }
+                lblCurrentFrame1.Content = playbackSlider1.Value.ToString();
+                sList1.setCurrentSkel(Convert.ToInt32(playbackSlider1.Value));
+                draw(sList1.GetCurrentSkel(), sList1, drawing1, Brushes.Black);
             }
-            catch (Exception f)
+            catch (IndexOutOfRangeException)
             {
-                MessageBox.Show(f.Message);
+                dispatcherTimer1.Stop();
             }
         }
     }

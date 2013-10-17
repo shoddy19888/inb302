@@ -28,6 +28,14 @@ namespace TrainingKit
             this.canvas = canvas;
         }
 
+        public void motorUp(int value)
+        {
+            sensor.ElevationAngle += value;
+        }
+        public void motorDown(int value)
+        {
+            sensor.ElevationAngle -= value;
+        }
         public void StartRecord()
         {
             record = true;

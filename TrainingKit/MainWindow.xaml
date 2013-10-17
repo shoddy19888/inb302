@@ -1,14 +1,14 @@
 ﻿<Window x:Class="TrainingKit.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="576.042" Width="938.194" WindowStartupLocation="CenterScreen">
-    <Grid Margin="0,0,2,3">
+        Title="MainWindow" Height="762.042" Width="1166.194" WindowStartupLocation="CenterScreen">
+    <Grid Margin="-2,-2,4,7">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="417*"/>
-            <ColumnDefinition Width="47*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
-        <Canvas x:Name="Surface" HorizontalAlignment="Left" Height="499" Margin="10,10,0,0" VerticalAlignment="Top" Width="536"/>
-        <Grid x:Name="gridPlayback" HorizontalAlignment="Left" Height="79" Margin="626,461,0,0" VerticalAlignment="Top" Width="301" Grid.ColumnSpan="2">
+        <Canvas x:Name="Surface" HorizontalAlignment="Left" Height="366" Margin="24,10,0,0" VerticalAlignment="Top" Width="400"/>
+        <Grid x:Name="gridPlayback" HorizontalAlignment="Left" Height="80" Margin="56,414,0,0" VerticalAlignment="Top" Width="300">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="0*"/>
@@ -26,21 +26,48 @@
             <Button x:Name="btnSF" Content="SF" HorizontalAlignment="Left" Height="30" Margin="202,4,0,0" VerticalAlignment="Top" Width="43" Click="btnSF_Click" Grid.Row="1"/>
             <Button x:Name="btnSRew" Content="SRew" HorizontalAlignment="Left" Height="30" Margin="58,4,0,0" VerticalAlignment="Top" Width="43" Click="btnSRew_Click" Grid.Row="1"/>
         </Grid>
-        <Button x:Name="btnRead" Content="Play a File" HorizontalAlignment="Left" Height="50" Margin="637,407,0,0" VerticalAlignment="Top" Width="281" Click="btnRead_Click" Grid.ColumnSpan="2"/>
-        <Button x:Name="btnKinect" Content="Start Kinect" HorizontalAlignment="Left" Height="50" Margin="637,352,0,0" VerticalAlignment="Top" Width="281" Click="btnKinect_Click" Grid.ColumnSpan="2"/>
-        <Slider x:Name="playbackSlider" HorizontalAlignment="Left" Margin="10,514,0,0" VerticalAlignment="Top" Width="536" ValueChanged="playbackSlider_ValueChanged"/>
-        <Label x:Name="lblFrame" Content="" Grid.Column="1" HorizontalAlignment="Right" Height="28" Margin="0,9,10,0" VerticalAlignment="Top" Width="74"/>
-        <Label Content="Frame Count:" Height="27" Margin="762,5,0,0" VerticalAlignment="Top" Width="82" Grid.ColumnSpan="2" HorizontalAlignment="Left"/>
-        <Label x:Name="lblCurrentFrame" Content="" Grid.Column="1" HorizontalAlignment="Right" Height="28" Margin="0,42,10,0" VerticalAlignment="Top" Width="74"/>
-        <Label Content="Current Frame:" Height="27" Margin="750,38,0,0" VerticalAlignment="Top" Width="94" Grid.ColumnSpan="2" HorizontalAlignment="Left"/>
-        <Image x:Name="imgColour" HorizontalAlignment="Left" Height="150" Margin="637,101,0,0" VerticalAlignment="Top" Width="281" Grid.ColumnSpan="2"/>
-        <Button x:Name="btnRecord" Grid.ColumnSpan="2" Content="Record" HorizontalAlignment="Left" Height="38" Margin="637,256,0,0" VerticalAlignment="Top" Width="281" Click="btnRecord_Click"/>
-        <Canvas x:Name="Surface2" HorizontalAlignment="Left" Height="499" Margin="10,10,0,0" VerticalAlignment="Top" Width="536"/>
-        <ComboBox x:Name="cmbFile" HorizontalAlignment="Left" Height="26" Margin="708,70,0,0" VerticalAlignment="Top" Width="116" SelectionChanged="ComboBox_SelectionChanged"/>
-        <Label Content="Current File:" Height="27" Margin="625,70,0,0" VerticalAlignment="Top" Width="79" HorizontalAlignment="Left"/>
-        <Button x:Name="btnStart" Content="Set Start" HorizontalAlignment="Left" Height="48" Margin="637,299,0,0" VerticalAlignment="Top" Width="138" Click="btnStart_Click"/>
-        <Button x:Name="btnSetEnd" Content="Set End" HorizontalAlignment="Left" Height="48" Margin="780,299,0,0" VerticalAlignment="Top" Width="138" Grid.ColumnSpan="2" Click="btnSetEnd_Click"/>
-        <Button x:Name="btnSetFile" Content="Set File" Grid.Column="1" HorizontalAlignment="Left" Height="26" Margin="0,70,0,0" VerticalAlignment="Top" Width="74" Click="btnSetFile_Click"/>
+        <Grid x:Name="gridPlayback1" HorizontalAlignment="Left" Height="80" Margin="479,415,0,0" VerticalAlignment="Top" Width="300">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="0*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35*"/>
+                <RowDefinition Height="29*"/>
+                <RowDefinition Height="14*"/>
+                <RowDefinition Height="3*"/>
+            </Grid.RowDefinitions>
+            <Button x:Name="btnPlay1" Content="Play" HorizontalAlignment="Left" Height="30" Margin="106,4,0,0" VerticalAlignment="Top" Width="43" Click="btnPlay1_Click" Grid.Row="1" Grid.RowSpan="2"/>
+            <Button x:Name="btnPause1" Content="Pause" HorizontalAlignment="Left" Margin="154,4,0,8" Width="43" Click="btnPause1_Click" Grid.Row="1" Grid.RowSpan="2"/>
+            <Button x:Name="btnRew1" Content="Rew" HorizontalAlignment="Left" Height="30" Margin="10,4,0,0" VerticalAlignment="Top" Width="43" Click="btnRew1_Click" Grid.Row="1" RenderTransformOrigin="0.651,0.5" Grid.RowSpan="2"/>
+            <Button x:Name="btnFF1" Content="FF" HorizontalAlignment="Left" Height="30" Margin="250,4,0,0" VerticalAlignment="Top" Width="43" Click="btnFF1_Click" Grid.Row="1" Grid.RowSpan="2"/>
+            <Button x:Name="btnStop1" Content="STOP" HorizontalAlignment="Left" Height="30" Margin="10,4,0,0" VerticalAlignment="Top" Width="283" Click="btnStop1_Click"/>
+            <Button x:Name="btnSF1" Content="SF" HorizontalAlignment="Left" Height="30" Margin="202,4,0,0" VerticalAlignment="Top" Width="43" Click="btnSF1_Click" Grid.Row="1" Grid.RowSpan="2"/>
+            <Button x:Name="btnSRew1" Content="SRew" HorizontalAlignment="Left" Margin="58,0,0,8" Width="43" Click="btnSRew1_Click" Grid.Row="1" Grid.RowSpan="2" Height="30" VerticalAlignment="Bottom"/>
+
+        </Grid>
+        <Button x:Name="btnKinect" Content="Start Kinect" HorizontalAlignment="Left" Height="50" Margin="860,10,0,0" VerticalAlignment="Top" Width="280" Click="btnKinect_Click"/>
+        <Slider x:Name="playbackSlider" HorizontalAlignment="Left" Margin="10,381,0,0" VerticalAlignment="Top" Width="402" ValueChanged="playbackSlider_ValueChanged" Height="26"/>
+        <Label Content="Frame Count:" Height="28" Margin="78,618,0,0" VerticalAlignment="Top" Width="82" HorizontalAlignment="Left"/>
+        <Label Content="Current Frame:" Height="26" Margin="66,652,0,0" VerticalAlignment="Top" Width="94" HorizontalAlignment="Left"/>
+        <Image x:Name="imgColour" HorizontalAlignment="Left" Height="150" Margin="860,145,0,0" VerticalAlignment="Top" Width="280"/>
+        <Button x:Name="btnRecord" Content="Record" HorizontalAlignment="Left" Height="38" Margin="860,65,0,0" VerticalAlignment="Top" Width="280" Click="btnRecord_Click"/>
+        <Canvas x:Name="Surface2" HorizontalAlignment="Left" Height="366" Margin="429,10,0,0" VerticalAlignment="Top" Width="402"/>
+        <Button x:Name="btnStart" Content="Set Start" HorizontalAlignment="Left" Height="48" Margin="66,498,0,0" VerticalAlignment="Top" Width="138" Click="btnStart_Click"/>
+        <Button x:Name="btnSetEnd" Content="Set End" HorizontalAlignment="Left" Height="48" Margin="208,498,0,0" VerticalAlignment="Top" Width="138" Click="btnSetEnd_Click"/>
+        <Button Content="Button" HorizontalAlignment="Left" Height="32" Margin="933,108,0,0" VerticalAlignment="Top" Width="68" Click="Button_Click"/>
+        <Button Content="Button" HorizontalAlignment="Left" Height="31" Margin="860,108,0,0" VerticalAlignment="Top" Width="68" Click="Button_Click_1"/>
+        <Slider x:Name="playbackSlider1" HorizontalAlignment="Left" Margin="429,381,0,0" VerticalAlignment="Top" Width="402" ValueChanged="playbackSlider1_ValueChanged" Height="26"/>
+        <Button x:Name="btnRead_Copy" Content="Play a File" HorizontalAlignment="Left" Height="50" Margin="66,551,0,0" VerticalAlignment="Top" Width="280" Click="btnRead_Click"/>
+        <Button x:Name="btnStart1" Content="Set Start" HorizontalAlignment="Left" Height="48" Margin="490,498,0,0" VerticalAlignment="Top" Width="138" Click="btnStart1_Click"/>
+        <Button x:Name="btnSetEnd1" Content="Set End" HorizontalAlignment="Left" Height="48" Margin="632,498,0,0" VerticalAlignment="Top" Width="138" Click="btnSetEnd1_Click"/>
+        <Button x:Name="btnRead1" Content="Play a File" HorizontalAlignment="Left" Height="50" Margin="490,551,0,0" VerticalAlignment="Top" Width="280" Click="btnRead1_Click"/>
+        <Label x:Name="lblFrame" Content="" HorizontalAlignment="Right" Height="28" Margin="0,620,917,0" VerticalAlignment="Top" Width="74"/>
+        <Label Content="Frame Count:" Height="28" Margin="502,618,0,0" VerticalAlignment="Top" Width="82" HorizontalAlignment="Left"/>
+        <Label x:Name="lblCurrentFrame" Content="" HorizontalAlignment="Right" Height="28" Margin="0,652,917,0" VerticalAlignment="Top" Width="74" RenderTransformOrigin="-2.108,0.571"/>
+        <Label Content="Current Frame:" Height="26" Margin="490,652,0,0" VerticalAlignment="Top" Width="94" HorizontalAlignment="Left"/>
+        <Label x:Name="lblFrame1" Content="" HorizontalAlignment="Right" Height="28" Margin="0,618,493,0" VerticalAlignment="Top" Width="74"/>
+        <Label x:Name="lblCurrentFrame1" Content="" HorizontalAlignment="Right" Height="28" Margin="0,650,493,0" VerticalAlignment="Top" Width="74" RenderTransformOrigin="-2.108,0.571"/>
 
     </Grid>
 </Window>
