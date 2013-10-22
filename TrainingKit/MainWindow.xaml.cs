@@ -44,6 +44,8 @@ namespace TrainingKit
             btnSetEnd1.IsEnabled = false;
             btnStart1.IsEnabled = false;
             playbackSlider.IsEnabled = false;
+            btnMotorDown.IsEnabled = false;
+            btnMotorUp.IsEnabled = false;
   
         }
 
@@ -155,13 +157,16 @@ namespace TrainingKit
                     kinect = new KinectStarter(KinectSensor.KinectSensors[0], imgColour, Surface);
                     kinect.StartSensor();
                     btnRecord.IsEnabled = true;
-
+                    btnMotorUp.IsEnabled = true;
+                    btnMotorDown.IsEnabled = true;
                 }
                 else
                 {
                     btnKinect.Content = "Start Kinect";
                     kinect.StopKinect();
                     btnRecord.IsEnabled = false;
+                    btnMotorUp.IsEnabled = false;
+                    btnMotorDown.IsEnabled = false;
                 }
             }
             catch

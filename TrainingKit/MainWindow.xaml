@@ -50,13 +50,13 @@
         <Slider x:Name="playbackSlider" HorizontalAlignment="Left" Margin="10,381,0,0" VerticalAlignment="Top" Width="402" ValueChanged="playbackSlider_ValueChanged" Height="26"/>
         <Label Content="Frame Count:" Height="28" Margin="78,618,0,0" VerticalAlignment="Top" Width="82" HorizontalAlignment="Left"/>
         <Label Content="Current Frame:" Height="26" Margin="66,652,0,0" VerticalAlignment="Top" Width="94" HorizontalAlignment="Left"/>
-        <Image x:Name="imgColour" HorizontalAlignment="Left" Height="150" Margin="860,145,0,0" VerticalAlignment="Top" Width="280"/>
+        <Image x:Name="imgColour" HorizontalAlignment="Left" Height="150" Margin="860,151,0,0" VerticalAlignment="Top" Width="280"/>
         <Button x:Name="btnRecord" Content="Record" HorizontalAlignment="Left" Height="38" Margin="860,65,0,0" VerticalAlignment="Top" Width="280" Click="btnRecord_Click"/>
         <Canvas x:Name="Surface2" HorizontalAlignment="Left" Height="366" Margin="429,10,0,0" VerticalAlignment="Top" Width="402"/>
         <Button x:Name="btnStart" Content="Set Start" HorizontalAlignment="Left" Height="48" Margin="66,498,0,0" VerticalAlignment="Top" Width="138" Click="btnStart_Click"/>
         <Button x:Name="btnSetEnd" Content="Set End" HorizontalAlignment="Left" Height="48" Margin="208,498,0,0" VerticalAlignment="Top" Width="138" Click="btnSetEnd_Click"/>
-        <Button Content="Button" HorizontalAlignment="Left" Height="32" Margin="933,108,0,0" VerticalAlignment="Top" Width="68" Click="Button_Click"/>
-        <Button Content="Button" HorizontalAlignment="Left" Height="31" Margin="860,108,0,0" VerticalAlignment="Top" Width="68" Click="Button_Click_1"/>
+        <Button x:Name="btnMotorDown" Content="Motor Down" HorizontalAlignment="Left" Height="38" Margin="1002,108,0,0" VerticalAlignment="Top" Width="138" Click="Button_Click"/>
+        <Button x:Name="btnMotorUp" Content="Motor Up" HorizontalAlignment="Left" Height="38" Margin="860,108,0,0" VerticalAlignment="Top" Width="138" Click="Button_Click_1"/>
         <Slider x:Name="playbackSlider1" HorizontalAlignment="Left" Margin="429,381,0,0" VerticalAlignment="Top" Width="402" ValueChanged="playbackSlider1_ValueChanged" Height="26"/>
         <Button x:Name="btnRead_Copy" Content="Play a File" HorizontalAlignment="Left" Height="50" Margin="66,551,0,0" VerticalAlignment="Top" Width="280" Click="btnRead_Click"/>
         <Button x:Name="btnStart1" Content="Set Start" HorizontalAlignment="Left" Height="48" Margin="490,498,0,0" VerticalAlignment="Top" Width="138" Click="btnStart1_Click"/>

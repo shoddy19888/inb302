@@ -10,9 +10,9 @@ namespace TrainingKit
     public class SkeletonList
     {
         //Variables
-        private Skeleton[] SkelList, oldSkelList;
+        private Skeleton[] SkelList;
         private int CurrentSkel;
-        int Start = 0, End = 0; 
+        private int Start = 0, End = 0; 
 
      
         //Constructors
@@ -82,14 +82,6 @@ namespace TrainingKit
         {
             End = end;
         }
-        //public void actNewSkellist()
-       // {
-     //       oldSkelList = new Skeleton[SkelList.Count()];
-          //  Array.Copy(SkelList, 0, oldSkelList, 0, SkelList.Count());
-        //    SkelList = new Skeleton[End - Start];
-       //     Array.Copy(oldSkelList, Start, SkelList, 0, End - Start);
-            
-        //}
 
         public int getStart()
         {

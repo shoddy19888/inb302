@@ -12,10 +12,31 @@ using System.Windows.Media.Imaging;
 namespace TrainingKit
 
 {
-    class Draw
+    public class Draw
     {
-        Canvas canvas;
-        Image image;
+        private Canvas canvas;
+        private Image image;
+
+        private static readonly JointType[][] SkeletonSegmentRuns = new JointType[][]
+        {
+            new JointType[] 
+            { 
+                JointType.Head, JointType.ShoulderCenter, JointType.HipCenter 
+            },
+            new JointType[] 
+            { 
+                JointType.HandLeft, JointType.WristLeft, JointType.ElbowLeft, JointType.ShoulderLeft,
+                JointType.ShoulderCenter,
+                JointType.ShoulderRight, JointType.ElbowRight, JointType.WristRight, JointType.HandRight
+            },
+            new JointType[]
+            {
+                JointType.FootLeft, JointType.AnkleLeft, JointType.KneeLeft, JointType.HipLeft,
+                JointType.HipCenter,
+                JointType.HipRight, JointType.KneeRight, JointType.AnkleRight, JointType.FootRight
+            }
+        };
+
         public Draw(Canvas canvas)
         {
             this.canvas = canvas;
@@ -40,25 +61,6 @@ namespace TrainingKit
             image.Source = CameraSource;
         }
 
-        private static readonly JointType[][] SkeletonSegmentRuns = new JointType[][]
-        {
-            new JointType[] 
-            { 
-                JointType.Head, JointType.ShoulderCenter, JointType.HipCenter 
-            },
-            new JointType[] 
-            { 
-                JointType.HandLeft, JointType.WristLeft, JointType.ElbowLeft, JointType.ShoulderLeft,
-                JointType.ShoulderCenter,
-                JointType.ShoulderRight, JointType.ElbowRight, JointType.WristRight, JointType.HandRight
-            },
-            new JointType[]
-            {
-                JointType.FootLeft, JointType.AnkleLeft, JointType.KneeLeft, JointType.HipLeft,
-                JointType.HipCenter,
-                JointType.HipRight, JointType.KneeRight, JointType.AnkleRight, JointType.FootRight
-            }
-        };
 
         private Point GetJointPoint(Skeleton skeleton, JointType jointType)
         {

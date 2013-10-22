@@ -21,6 +21,8 @@ namespace TrainingKit
         private KinectSensor sensor;
         private bool record = false;
         private List<Skeleton> skelrec = new List<Skeleton>{};
+        private static readonly int Bgr32BytesPerPixel = (PixelFormats.Bgr32.BitsPerPixel + 7) / 8;
+        private byte[] pixelData;
 
         public KinectStarter(KinectSensor sensor, Image image, Canvas canvas)
         {
@@ -159,8 +161,7 @@ namespace TrainingKit
 
             }
         }
-        private static readonly int Bgr32BytesPerPixel = (PixelFormats.Bgr32.BitsPerPixel + 7) / 8;
-        private byte[] pixelData;
+
         
         private WriteableBitmap ColorImageReady(object sender, AllFramesReadyEventArgs e)
         {
