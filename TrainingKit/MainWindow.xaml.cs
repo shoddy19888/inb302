@@ -29,8 +29,7 @@ namespace TrainingKit
         SkelIO io;
         SkeletonList sList;
         SkeletonList sList1;
-   
-
+  
         public MainWindow()
         {
             InitializeComponent();
@@ -93,7 +92,6 @@ namespace TrainingKit
 
         }
 
-
         System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
@@ -140,11 +138,6 @@ namespace TrainingKit
 
         }
 
-
-
-       
-
-        
         private void btnPlay_Click(object sender, RoutedEventArgs e)
         {
             dispatchTimerStart(false, 40);
@@ -152,9 +145,6 @@ namespace TrainingKit
 
         KinectStarter kinect = new KinectStarter();
 
-
-        
-        
         private void btnKinect_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -239,8 +229,7 @@ namespace TrainingKit
             }
         }
 
-
-        public void math()
+        private void math()
         {/*
             if (list1 > list2)
             {
@@ -272,32 +261,25 @@ namespace TrainingKit
             }
         }
 
-
-
         private void btnStart_Click(object sender, RoutedEventArgs e)
-        {
-
-            sList.setStart(Convert.ToInt32(playbackSlider.Value));
+        {    
             if (sList.getStart() > sList.getEnd() && sList.getEnd() != 0)
             {
                 MessageBox.Show("The start point needs to be before the end point.");
                 return;
             }
+            sList.setStart(Convert.ToInt32(playbackSlider.Value));
         }
 
         private void btnSetEnd_Click(object sender, RoutedEventArgs e)
         {
-
-            sList.setEnd(Convert.ToInt32(playbackSlider.Value));
             if (sList.getEnd() < sList.getStart())
             {
                 MessageBox.Show("End point needs to be later in time than the start point.");
                 return;
             }
-
+            sList.setEnd(Convert.ToInt32(playbackSlider.Value));
         }
-
-        
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {

@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace TrainingKit
 {
-    class SkelIO
+    public class SkelIO
     {
         public void writetofile(List<Skeleton> skellist)
         {

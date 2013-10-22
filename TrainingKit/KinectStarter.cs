@@ -21,6 +21,7 @@ namespace TrainingKit
         private KinectSensor sensor;
         private bool record = false;
         private List<Skeleton> skelrec = new List<Skeleton>{};
+
         public KinectStarter(KinectSensor sensor, Image image, Canvas canvas)
         {
             this.sensor = sensor;

@@ -267,6 +267,7 @@ namespace INB302WPF
         static extern int DeleteObject(IntPtr o);
         BitmapSource LoadBit(System.Drawing.Bitmap source)
         {
+
             if (source != null)
             {
 
